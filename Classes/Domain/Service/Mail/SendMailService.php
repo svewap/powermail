@@ -4,18 +4,15 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
-use In2code\Powermail\Domain\Service\Mail\PlaintextService;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
-use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -132,7 +129,6 @@ class SendMailService
         $message = $this->addAttachmentsFromUploads($message);
         $message = $this->addAttachmentsFromTypoScript($message);
         $message = $this->addSenderHeader($message);
-
 
         $email['send'] = true;
         $signalArguments = [$message, &$email, $this];
