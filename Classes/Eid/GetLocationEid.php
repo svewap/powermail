@@ -74,4 +74,5 @@ class GetLocationEid
 
 $eid = GeneralUtility::makeInstance(GetLocationEid::class);
 // @extensionScannerIgnoreLine Seems to be a false positive ->main()
-echo $eid->main();
+//echo $eid->main();
+
