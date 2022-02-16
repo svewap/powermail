@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Form;
@@ -15,18 +14,19 @@ use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -201,7 +201,7 @@ class FormController extends AbstractController
         if ($this->isNoOptin($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
         } else {
-            $mailPreflight = $this->objectManager->get(
+            $mailPreflight = GeneralUtility::makeInstance(
                 SendOptinConfirmationMailPreflight::class,
                 $this->settings,
                 $this->conf
@@ -217,7 +217,7 @@ class FormController extends AbstractController
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
         $this->prepareOutput($mail);
 
-        $finisherRunner = $this->objectManager->get(FinisherRunner::class);
+        $finisherRunner = GeneralUtility::makeInstance(FinisherRunner::class);
         /** @noinspection PhpUnhandledExceptionInspection */
         $finisherRunner->callFinishers(
             $mail,
@@ -238,7 +238,7 @@ class FormController extends AbstractController
     {
         try {
             if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
-                $mailPreflight = $this->objectManager->get(
+                $mailPreflight = GeneralUtility::makeInstance(
                     SendSenderMailPreflight::class,
                     $this->settings,
                     $this->conf
@@ -246,7 +246,7 @@ class FormController extends AbstractController
                 $mailPreflight->sendSenderMail($mail);
             }
             if ($this->isReceiverMailEnabled()) {
-                $mailPreflight = $this->objectManager->get(SendReceiverMailPreflight::class, $this->settings);
+                $mailPreflight = GeneralUtility::makeInstance(SendReceiverMailPreflight::class, $this->settings);
                 $isSent = $mailPreflight->sendReceiverMail($mail, $hash);
                 if ($isSent === false) {
                     $this->addFlashMessage(
@@ -303,7 +303,7 @@ class FormController extends AbstractController
      */
     protected function saveMail(Mail $mail): void
     {
-        $mailFactory = $this->objectManager->get(MailFactory::class);
+        $mailFactory = GeneralUtility::makeInstance(MailFactory::class);
         $mailFactory->prepareMailForPersistence($mail, $this->settings);
         $this->mailRepository->add($mail);
         $this->persistenceManager->persistAll();
@@ -359,7 +359,7 @@ class FormController extends AbstractController
         $mail = $this->mailRepository->findByUid($mail);
         $status = false;
         if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
-            $mailService = $this->objectManager->get(SendDisclaimedMailPreflight::class, $this->settings, $this->conf);
+            $mailService = GeneralUtility::makeInstance(SendDisclaimedMailPreflight::class, $this->settings, $this->conf);
             $mailService->sendMail($mail);
             $this->mailRepository->removeFromDatabase($mail->getUid());
             $status = true;
@@ -400,7 +400,7 @@ class FormController extends AbstractController
     {
         // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
-        $configurationService = $this->objectManager->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         if ($this->settings['debug']['settings']) {

@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -58,7 +59,7 @@ class ConfigurationService implements SingletonInterface
      */
     protected function getTypoScriptSettingsFromOverallConfiguration(string $pluginName): array
     {
-        $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $setup = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Powermail',
@@ -74,7 +75,7 @@ class ConfigurationService implements SingletonInterface
      */
     protected function getTypoScriptConfigurationFromOverallConfiguration(string $pluginName): array
     {
-        $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configuration = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT,
             'Powermail',

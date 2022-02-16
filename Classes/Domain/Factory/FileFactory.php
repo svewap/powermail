@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -77,7 +78,7 @@ class FileFactory
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
         if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
             return $this->makeFileInstance($marker, $value, 0, '', '', true);
@@ -128,7 +129,7 @@ class FileFactory
         bool $uploaded = false,
         Form $form = null
     ): File {
-        $file = ObjectUtility::getObjectManager()->get(File::class, $marker, $originalName, $temporaryName);
+        $file = GeneralUtility::makeInstance(File::class, $marker, $originalName, $temporaryName);
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === 0) {
@@ -142,7 +143,7 @@ class FileFactory
         $file->setUploaded($uploaded);
 
         /* @var FieldRepository $fieldRepository */
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $file->setField($fieldRepository->findByMarkerAndForm($marker, $this->getFormUid($form)));
         return $file;
     }

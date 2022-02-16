@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -13,8 +11,10 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -299,7 +299,7 @@ class ModuleController extends AbstractController
      */
     public function fixWrongLocalizedPagesAction(): void
     {
-        $pageRepository = $this->objectManager->get(PageRepository::class);
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
         $this->redirect('checkBe');
     }

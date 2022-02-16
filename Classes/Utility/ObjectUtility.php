@@ -41,7 +41,7 @@ class ObjectUtility
      */
     public static function getContentObject(): ContentObjectRenderer
     {
-        return self::getObjectManager()->get(ContentObjectRenderer::class);
+        return GeneralUtility::makeInstance(ContentObjectRenderer::class);
     }
 
     /**
@@ -51,7 +51,7 @@ class ObjectUtility
      */
     public static function getConfigurationManager(): ConfigurationManager
     {
-        return self::getObjectManager()->get(ConfigurationManager::class);
+        return GeneralUtility::makeInstance(ConfigurationManager::class);
     }
 
     /**

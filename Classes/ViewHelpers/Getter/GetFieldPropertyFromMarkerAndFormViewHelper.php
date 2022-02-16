@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
@@ -44,7 +45,7 @@ class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
     {
         /** @var Form $form */
         $form = $this->arguments['form'];
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm((string)$this->arguments['marker'], $form->getUid());
         if ($field !== null) {
             return ObjectAccess::getProperty($field, $this->arguments['property']);

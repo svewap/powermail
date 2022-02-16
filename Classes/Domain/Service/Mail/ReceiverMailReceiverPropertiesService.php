@@ -68,7 +68,7 @@ class ReceiverMailReceiverPropertiesService
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->setReceiverEmails();
     }
@@ -141,7 +141,7 @@ class ReceiverMailReceiverPropertiesService
     protected function getEmailsFromFlexForm(): array
     {
         if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_DEFAULT) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $emailString = TemplateUtility::fluidParseString(
                 $this->settings['receiver']['email'],
                 $mailRepository->getVariablesWithMarkersFromMail($this->mail)
@@ -162,7 +162,7 @@ class ReceiverMailReceiverPropertiesService
     protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
         if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $users = $userRepository->findByUsergroup($uid);
             $emailArray = [];
             /** @var User $user */
@@ -188,7 +188,7 @@ class ReceiverMailReceiverPropertiesService
     {
         if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
             /** @var BackendUserRepository $beUserRepository */
-            $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
+            $beUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
             $query = $beUserRepository->createQuery();
             $users = $query->matching($query->contains('usergroup', $uid))->execute();
             $emailArray = [];

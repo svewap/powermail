@@ -8,6 +8,7 @@ use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -52,9 +53,9 @@ class ReceiverMailSenderPropertiesService
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        $this->mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
     }
 

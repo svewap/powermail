@@ -5,6 +5,7 @@ namespace In2code\Powermail\Finisher;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -13,18 +14,13 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 /**
  * SendParametersFinisher to send params via CURL
  */
-class SendParametersFinisher extends AbstractFinisher implements FinisherInterface
+class SendParametersFinisher extends AbstractFinisher
 {
 
     /**
      * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
-
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObject = null;
 
     /**
      * TypoScript configuration part sendPost
@@ -130,10 +126,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     public function initializeFinisher(): void
     {
         // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-        $this->contentObject = $this->configurationManager->getContentObject();
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $this->contentObject->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         $this->configuration = $configuration['marketing.']['sendPost.'];
     }

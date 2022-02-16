@@ -136,7 +136,7 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $fieldRepository = $this->objectManager->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $and = [
             $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
             $query->equals('answers.value', $value),
@@ -414,7 +414,7 @@ class MailRepository extends AbstractRepository
                 $name = $default;
             } else {
                 /** @var ContentObjectRenderer $contentObject */
-                $contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
+                $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
                 $name = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
             }
         }
@@ -487,7 +487,7 @@ class MailRepository extends AbstractRepository
      */
     public function initializeObject(): void
     {
-        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -55,7 +56,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
 
             if ($this->addRedirectUri) {
                 /** @var RedirectUriService $redirectService */
-                $redirectService = ObjectUtility::getObjectManager()->get(
+                $redirectService = GeneralUtility::makeInstance(
                     RedirectUriService::class,
                     $this->contentObject
                 );

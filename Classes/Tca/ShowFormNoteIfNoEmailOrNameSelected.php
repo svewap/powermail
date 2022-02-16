@@ -124,7 +124,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     protected function senderEmailOrSenderNameSet(): bool
     {
         $formIdentifier = $this->data['databaseRow']['uid'];
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
@@ -174,7 +174,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
      */
     protected function hasFormUniqueAndFilledFieldMarkers(): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($this->data['databaseRow']['uid']);
         $markers = [];
         foreach ($fields as $field) {

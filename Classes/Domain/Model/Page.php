@@ -7,6 +7,7 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -179,7 +180,7 @@ class Page extends AbstractEntity
     {
         $form = $this->form;
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-            $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+            $formRepository = GeneralUtility::makeInstance(FormRepository::class);
             $form = $formRepository->findByPages($this->uid);
         }
         return $form;

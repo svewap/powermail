@@ -5,6 +5,7 @@ namespace In2code\Powermail\Hook;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -138,7 +139,7 @@ class FlexFormManipulationHook
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['addField.'])) {
             $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.']['addField.'];
             /** @var TypoScriptService $tsService */
-            $tsService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+            $tsService = GeneralUtility::makeInstance(TypoScriptService::class);
             return $tsService->convertTypoScriptArrayToPlainArray($eConfiguration);
         }
         return [];

@@ -6,11 +6,11 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -104,7 +104,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
                 break;
 
             default:
-                $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
+                $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
                 $image = $captchaService->render($field);
         }
         return $image;
@@ -116,7 +116,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      */
     public function getSettings(): array
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         return $configurationService->getTypoScriptSettings();
     }
 }

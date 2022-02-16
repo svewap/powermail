@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Service\SaveToAnyTableService;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -59,7 +60,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected function saveSpecifiedTablePreflight(int $numberKey, array $tableConfiguration): void
     {
         /* @var $saveService SaveToAnyTableService */
-        $saveService = ObjectUtility::getObjectManager()->get(
+        $saveService = GeneralUtility::makeInstance(
             SaveToAnyTableService::class,
             $this->getTableName($tableConfiguration)
         );
@@ -223,14 +224,14 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher(): void
     {
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
         }
         if ($this->isConfigurationAvailable()) {
             $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $this->addArrayToDataArray($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
     }

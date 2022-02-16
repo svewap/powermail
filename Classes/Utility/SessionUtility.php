@@ -155,13 +155,13 @@ class SessionUtility
     public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {
         $valuesToSave = [];
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $contentObject = ObjectUtility::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (!empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
             $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {

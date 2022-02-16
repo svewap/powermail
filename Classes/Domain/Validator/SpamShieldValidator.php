@@ -114,7 +114,7 @@ class SpamShieldValidator extends AbstractValidator
             }
             if (is_subclass_of($method['class'], $this->methodInterface)) {
                 /** @var AbstractMethod $methodInstance */
-                $methodInstance = ObjectUtility::getObjectManager()->get(
+                $methodInstance = GeneralUtility::makeInstance(
                     $method['class'],
                     $mail,
                     $this->settings,
@@ -418,7 +418,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function isSpamShieldEnabled(Mail $mail): bool
     {
-        $breakerRunner = ObjectUtility::getObjectManager()->get(
+        $breakerRunner = GeneralUtility::makeInstance(
             BreakerRunner::class,
             $mail,
             $this->settings,

@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -63,7 +64,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function formHasPassword(Form $form): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasPassword($form);
         return count($form) ? true : false;
     }

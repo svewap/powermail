@@ -107,7 +107,7 @@ class TemplateUtility
         string $format = 'html'
     ): StandaloneView {
         /** @var StandaloneView $standaloneView */
-        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->getRequest()->setControllerExtensionName($extensionName);
         $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
@@ -161,7 +161,7 @@ class TemplateUtility
             || BackendUtility::isBackendContext()) {
             return $string;
         }
-        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render() ?? '';

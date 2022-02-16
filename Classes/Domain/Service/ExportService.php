@@ -150,7 +150,7 @@ class ExportService
      */
     protected function sendEmail(): bool
     {
-        $email = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $email = GeneralUtility::makeInstance(MailMessage::class);
         $email->setTo($this->getReceiverEmails());
         $email->setFrom($this->getSenderEmails());
         $email->setSubject($this->getSubject());

@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Getter;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -31,7 +32,7 @@ class GetPagesWithContentRelatedToFormViewHelper extends AbstractViewHelper
      */
     public function render(): array
     {
-        $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         return $pageRepository->getPagesWithContentRelatedToForm($this->arguments['form']);
     }
 }

@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -204,7 +205,7 @@ class InputValidator extends StringValidator
                     if ($field->getValidation()) {
                         $validation = $field->getValidation();
                         if (!empty($this->settings['validation']['customValidation'][$validation])) {
-                            $extendedValidator = ObjectUtility::getObjectManager()->get(
+                            $extendedValidator = GeneralUtility::makeInstance(
                                 $this->settings['validation']['customValidation'][$validation]
                             );
                             if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation))) {

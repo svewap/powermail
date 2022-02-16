@@ -7,6 +7,7 @@ use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -52,7 +53,7 @@ class FinisherRunner
             }
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractFinisher $finisher */
-                $finisher = ObjectUtility::getObjectManager()->get(
+                $finisher = GeneralUtility::makeInstance(
                     $class,
                     $mail,
                     (array)$finisherSettings['config'],

@@ -111,7 +111,7 @@ class FrontendUtility
     public static function isAllowedToEdit(array $settings, $mail): bool
     {
         if (!is_a($mail, Mail::class)) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
         if (!ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
@@ -134,7 +134,7 @@ class FrontendUtility
         // add owner groups to allowed groups (if "_owner")
         if (is_numeric(array_search('_owner', $usergroupsSettings))) {
             /** @var UserRepository $userRepository */
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
             $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }

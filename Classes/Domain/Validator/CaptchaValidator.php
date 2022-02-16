@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
@@ -107,7 +106,7 @@ class CaptchaValidator extends AbstractValidator
      */
     protected function validatePowermailCaptcha(string $value, Field $field): bool
     {
-        $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
+        $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
         return $captchaService->validCode($value, $field, $this->isClearSession());
     }
 
@@ -151,7 +150,7 @@ class CaptchaValidator extends AbstractValidator
      */
     protected function formHasCaptcha(Form $form): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasCaptcha($form);
         return count($form) ? true : false;
     }

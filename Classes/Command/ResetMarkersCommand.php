@@ -5,11 +5,11 @@ namespace In2code\Powermail\Command;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -45,7 +45,7 @@ class ResetMarkersCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $markerService = ObjectUtility::getObjectManager()->get(GetNewMarkerNamesForFormService::class);
+        $markerService = GeneralUtility::makeInstance(GetNewMarkerNamesForFormService::class);
         $markers = $markerService->getMarkersForFieldsDependingOnForm(
             (int)$input->getArgument('formUid'),
             (bool)$input->getArgument('forceReset')

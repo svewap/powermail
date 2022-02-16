@@ -119,13 +119,13 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($pid > 0) {
-            $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
+            $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
             $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
             $pids = BackendUtility::filterPagesForAccess($pids);
             $query->matching($query->in('pid', $pids));
         } else {
             if (!BackendUtility::isBackendAdmin()) {
-                $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+                $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
                 $pids = $pageRepository->getAllPages();
                 $pids = BackendUtility::filterPagesForAccess($pids);
                 $query->matching($query->in('pid', $pids));

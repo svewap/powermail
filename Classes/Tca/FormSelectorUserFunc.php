@@ -40,7 +40,7 @@ class FormSelectorUserFunc
      */
     public function __construct()
     {
-        $this->pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $this->tsConfiguration = BackendUtility::getPagesTSconfig(BackendUtility::getPidFromBackendPage());
     }
 
@@ -153,7 +153,7 @@ class FormSelectorUserFunc
      */
     protected function getPidListFromStartingPoint(int $startPid = 0): string
     {
-        $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
+        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         return (string)$queryGenerator->getTreeList($startPid, 10, 0, 1);
     }
 

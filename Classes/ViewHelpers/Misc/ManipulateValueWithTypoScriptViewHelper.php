@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -74,8 +75,8 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         $this->typoScriptContext = $configuration['manipulateVariablesInPowermailAllMarker.'];
     }

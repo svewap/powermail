@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Service\Mail;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -48,8 +49,8 @@ class SendDisclaimedMailPreflight
     {
         $this->settings = $settings;
         $this->conf = $conf;
-        $this->sendMailService = ObjectUtility::getObjectManager()->get(SendMailService::class);
-        $this->mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
     }
 
     /**
@@ -64,12 +65,12 @@ class SendDisclaimedMailPreflight
      */
     public function sendMail(Mail $mail): void
     {
-        $receiverService = ObjectUtility::getObjectManager()->get(
+        $receiverService = GeneralUtility::makeInstance(
             ReceiverMailReceiverPropertiesService::class,
             $mail,
             $this->settings
         );
-        $senderService = ObjectUtility::getObjectManager()->get(
+        $senderService = GeneralUtility::makeInstance(
             ReceiverMailSenderPropertiesService::class,
             $mail,
             $this->settings

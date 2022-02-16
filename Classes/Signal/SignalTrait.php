@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Signal;
 
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -33,7 +34,7 @@ trait SignalTrait
     {
         if ($this->isSignalEnabled()) {
             /** @var Dispatcher $signalSlotDispatcher */
-            $signalSlotDispatcher = ObjectUtility::getObjectManager()->get(Dispatcher::class);
+            $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
             $signalSlotDispatcher->dispatch($signalClassName, $signalName, $arguments);
         }
     }

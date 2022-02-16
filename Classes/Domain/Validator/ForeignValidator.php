@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -42,7 +43,7 @@ class ForeignValidator extends AbstractValidator
             }
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
-                $validator = ObjectUtility::getObjectManager()->get($validatorConf['class']);
+                $validator = GeneralUtility::makeInstance($validatorConf['class']);
                 $validator->setConfiguration((array)$validatorConf['config']);
                 $validator->initialize();
                 /** @var Result $result */

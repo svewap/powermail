@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -94,7 +95,7 @@ class RedirectUriService
      */
     protected function getFlexFormArray(): ?array
     {
-        $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         return $flexFormService->convertFlexFormContentToArray($this->contentObject->data['pi_flexform']);
     }
 
@@ -106,7 +107,7 @@ class RedirectUriService
      */
     protected function getOverwriteTypoScript(): ?array
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         if (!empty($configuration['thx.']['overwrite.'])) {
             return $configuration['thx.']['overwrite.'];

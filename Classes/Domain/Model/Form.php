@@ -94,7 +94,7 @@ class Form extends AbstractEntity
     {
         // if elementbrowser instead of IRRE (sorting workarround)
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-            $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+            $formRepository = GeneralUtility::makeInstance(FormRepository::class);
             $formSorting = GeneralUtility::trimExplode(',', $formRepository->getPagesValue($this->uid), true);
             $formSorting = array_flip($formSorting);
             $pageArray = [];

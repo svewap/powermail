@@ -6,8 +6,8 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
@@ -40,6 +40,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     protected $configuration = [];
 
+
     /**
      * @param Field $field
      * @param string $label
@@ -71,13 +72,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function injectTypoScript(ConfigurationManagerInterface $configurationManager): void
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
-        $this->settings = $configurationService->getTypoScriptSettings();
-        $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
-        $this->flexForm = $flexFormService->convertFlexFormContentToArray(
-            // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-            $configurationManager->getContentObject()->data['pi_flexform']
-        );
+
     }
 
     /**
@@ -142,9 +137,8 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
             return $arguments['action'] === 'confirmation';
-        } else {
-            return $arguments['action'] === 'create';
         }
+        return $arguments['action'] === 'create';
     }
 
     /**
@@ -156,6 +150,16 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     public function __construct(array $options = [])
     {
         parent::__construct($options);
+
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
+        $this->settings = $configurationService->getTypoScriptSettings();
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->flexForm = $flexFormService->convertFlexFormContentToArray(
+        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
+            $configurationManager->getContentObject()->data['pi_flexform']
+        );
     }
 
     /**

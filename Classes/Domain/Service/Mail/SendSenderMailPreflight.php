@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -49,8 +50,8 @@ class SendSenderMailPreflight
     {
         $this->settings = $settings;
         $this->conf = $conf;
-        $this->sendMailService = ObjectUtility::getObjectManager()->get(SendMailService::class);
-        $this->mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
     }
 
     /**
@@ -65,7 +66,7 @@ class SendSenderMailPreflight
      */
     public function sendSenderMail(Mail $mail): void
     {
-        $senderService = ObjectUtility::getObjectManager()->get(SenderMailPropertiesService::class, $this->settings);
+        $senderService = GeneralUtility::makeInstance(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),

@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -29,7 +30,7 @@ class UniqueValidator extends AbstractValidator
                         /** @var Answer $answer */
                         if ($answer->getField()->getMarker() === $marker) {
                             /** @var MailRepository $mailRepository */
-                            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+                            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
                             $numberOfMails = $mailRepository->findByMarkerValueForm(
                                 $marker,
                                 $answer->getValue(),

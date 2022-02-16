@@ -165,7 +165,7 @@ class UploadService implements SingletonInterface
             foreach ((array)$filesArray['name']['field'] as $marker => $files) {
                 foreach ((array)array_keys($files) as $key) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromFilesArray($filesArray, $marker, $key);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -195,7 +195,7 @@ class UploadService implements SingletonInterface
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromUploadArguments($marker, $value, $arguments);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -219,14 +219,14 @@ class UploadService implements SingletonInterface
     {
         $arguments = $this->getArguments();
         if ($this->isOptinConfirmWithExistingMail($arguments)) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             /** @var Mail $mail */
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
             if ($mail !== null) {
                 $answers = $mail->getAnswersByValueType(Answer::VALUE_TYPE_UPLOAD);
                 foreach ($answers as $answer) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $value = $answer->getValue();
                     if (is_array($value)) {
                         foreach ($value as $valueItem) {

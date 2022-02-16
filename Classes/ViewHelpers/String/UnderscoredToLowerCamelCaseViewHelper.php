@@ -11,7 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 /**
  * Class UnderscoredToLowerCamelCaseViewHelper
  */
-class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implements ViewHelperInterface
+class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 

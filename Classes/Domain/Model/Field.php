@@ -175,7 +175,7 @@ class Field extends AbstractEntity
         if (empty($type)) {
             $type = 'input';
             if ($this->isLocalized()) {
-                $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+                $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
                 $originalType = $fieldRepository->getTypeFromUid($this->getUid());
                 if (!empty($originalType)) {
                     $type = $originalType;
@@ -608,7 +608,7 @@ class Field extends AbstractEntity
     {
         $marker = $this->marker;
         if ($this->isLocalized()) {
-            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+            $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
             $marker = $fieldRepository->getMarkerFromUid($this->getUid());
         }
         if (empty($marker)) {

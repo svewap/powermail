@@ -7,6 +7,7 @@ use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -44,7 +45,7 @@ class DataProcessorRunner
             }
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractDataProcessor $dataProcessor */
-                $dataProcessor =  ObjectUtility::getObjectManager()->get(
+                $dataProcessor =  GeneralUtility::makeInstance(
                     $dpSettings['class'],
                     $mail,
                     (array)$dpSettings['config'],

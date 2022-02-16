@@ -116,7 +116,7 @@ class CreateMarker
         if ($this->shouldProcess($table)) {
             $this->initialize($status, $table, $uid, $properties);
             /** @var GetNewMarkerNamesForFormService $markerService */
-            $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+            $markerService = GeneralUtility::makeInstance(GetNewMarkerNamesForFormService::class);
             $markers = $markerService->makeUniqueValueInArray($this->fieldArray);
 
             if ($this->table === Field::TABLE_NAME) {
@@ -244,7 +244,7 @@ class CreateMarker
     protected function makeFieldFromProperties(array $properties, string $uid = '0')
     {
         /** @var Field $field */
-        $field = $this->objectManager->get(Field::class);
+        $field = GeneralUtility::makeInstance(Field::class);
         foreach ($properties as $key => $value) {
             $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }

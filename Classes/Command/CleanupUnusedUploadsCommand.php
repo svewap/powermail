@@ -4,7 +4,6 @@ namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Repository\AnswerRepository;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,7 +58,7 @@ class CleanupUnusedUploadsCommand extends Command
      */
     protected function getUsedUploads()
     {
-        $answerRepository = ObjectUtility::getObjectManager()->get(AnswerRepository::class);
+        $answerRepository = GeneralUtility::makeInstance(AnswerRepository::class);
         $answers = $answerRepository->findByAnyUpload();
         $usedUploads = [];
         foreach ($answers as $answer) {

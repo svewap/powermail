@@ -110,7 +110,7 @@ class SendMailService
      */
     protected function prepareAndSend(array $email): bool
     {
-        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
@@ -256,7 +256,7 @@ class SendMailService
     {
         if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
             /** @var UploadService $uploadService */
-            $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
+            $uploadService = GeneralUtility::makeInstance(UploadService::class);
             foreach ($uploadService->getFiles() as $file) {
                 if ($file->isUploaded() && $file->isValid() && $file->isFileExisting()) {
                     $message->attachFromPath($file->getNewPathAndFilename(true));
@@ -327,7 +327,7 @@ class SendMailService
     protected function addPlainBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'html') {
-            $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
+            $plaintextService = GeneralUtility::makeInstance(PlaintextService::class);
             $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
         }
         return $message;
@@ -377,7 +377,7 @@ class SendMailService
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath($email['template'] . '.html'));
 
         // variables
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($this->mail);
         $standaloneView->assignMultiple($variablesWithMarkers);
         $standaloneView->assignMultiple($mailRepository->getLabelsWithMarkersFromMail($this->mail));
@@ -424,7 +424,7 @@ class SendMailService
      */
     protected function getConfigurationFromSettings(array $settings): array
     {
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
     }
 
@@ -440,7 +440,7 @@ class SendMailService
      */
     protected function parseAndOverwriteVariables(array &$email, Mail $mail): void
     {
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $email['subject'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['subject'],
             $this->overwriteConfig,
@@ -499,7 +499,7 @@ class SendMailService
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
         $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         ObjectUtility::getContentObject()->start($mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
     }

@@ -233,7 +233,7 @@ class BackendUtility
     public static function filterPagesForAccess(array $pids): array
     {
         if (!self::isBackendAdmin()) {
-            $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
             // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {

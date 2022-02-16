@@ -124,7 +124,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     protected function getLatestMails(): QueryResultInterface
     {
         /** @var MailRepository $mailRepository */
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         return $mailRepository->findLatestByForm(
             (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
         );
@@ -215,7 +215,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     protected function initialize(array $row): void
     {
         $this->row = $row;
-        $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         $this->flexFormData = $flexFormService->convertFlexFormContentToArray($this->row['pi_flexform']);
     }
 }

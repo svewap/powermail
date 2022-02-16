@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -25,7 +24,7 @@ class FieldSelectorUserFunc
     public function getFieldSelection(array &$params): void
     {
         /** @var FormRepository $formRepository */
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
         if (!$formUid) {
             $params['items'] = [

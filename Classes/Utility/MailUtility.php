@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -28,7 +29,7 @@ class MailUtility
         string $subject,
         string $body
     ): bool {
-        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $message->setTo([$receiverEmail => '']);
         $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);

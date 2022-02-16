@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -22,7 +23,7 @@ class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
      */
     public function render(): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $forms = $formRepository->findAllWrongLocalizedForms();
         return count($forms) === 0;
     }

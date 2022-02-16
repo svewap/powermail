@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Form;
 
 use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -39,7 +40,7 @@ class CountriesViewHelper extends AbstractViewHelper
             $value = $this->arguments['value'];
             $sortbyField = $this->arguments['sortbyField'];
             $sorting = $this->arguments['sorting'];
-            $countriesService = ObjectUtility::getObjectManager()->get(CountriesFromStaticInfoTablesService::class);
+            $countriesService = GeneralUtility::makeInstance(CountriesFromStaticInfoTablesService::class);
             $countries = $countriesService->getCountries($key, $value, $sortbyField, $sorting);
         }
 
