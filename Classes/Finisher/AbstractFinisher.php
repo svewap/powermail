@@ -47,7 +47,7 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
      * @return Mail
@@ -169,6 +169,6 @@ abstract class AbstractFinisher implements FinisherInterface
         $this->setSettings($settings);
         $this->setFormSubmitted($formSubmitted);
         $this->setActionMethodName($actionMethodName);
-        $this->contentObject = $contentObject;
+        $this->contentObject = clone $contentObject;
     }
 }

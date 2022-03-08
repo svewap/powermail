@@ -16,13 +16,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 /**
  * Class SaveToAnyTableFinisher
  */
-class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterface
+class SaveToAnyTableFinisher extends AbstractFinisher
 {
-
-    /**
-     * @var ContentObjectRenderer
-     */
-    protected $contentObject;
 
     /**
      * @var array
@@ -37,6 +32,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function savePreflightFinisher(): void
     {
+
         if ($this->isConfigurationAvailable()) {
             foreach (array_keys($this->configuration) as $key) {
                 $this->contentObject->start($this->getDataArray());
@@ -236,12 +232,4 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         }
     }
 
-    /**
-     * @param ContentObjectRenderer $contentObject
-     * @return void
-     */
-    public function injectContentObject(ContentObjectRenderer $contentObject): void
-    {
-        $this->contentObject = $contentObject;
-    }
 }
