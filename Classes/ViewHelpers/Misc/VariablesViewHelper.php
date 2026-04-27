@@ -77,10 +77,10 @@ class VariablesViewHelper extends AbstractViewHelper
      *
      * @return mixed The finally rendered child nodes.
      */
-    public function renderChildren()
+    public function renderChildren(): mixed
     {
         $content = parent::renderChildren();
-        return str_replace('-&gt;', '->', $content);
+        return str_replace('-&gt;', '->', (string)$content);
     }
 
     /**
