@@ -3,7 +3,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -25,30 +24,16 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
         $this->registerArgument('additionalAttributes', 'array', 'Any attributes to render');
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    public function render(): string
     {
-        return self::renderStatic(
-            $this->arguments,
-            $this->buildRenderChildrenClosure(),
-            $this->renderingContext
-        );
-    }
-
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): string {
+        $arguments = $this->arguments;
         $content = '';
         if ((int)$arguments['columns'] > 0) {
             $content .= self::getBeginningTag($arguments);
-            $content .= $renderChildrenClosure();
+            $content .= (string)$this->renderChildren();
             $content .= self::getEndingTag($arguments);
         } else {
-            $content .= $renderChildrenClosure();
+            $content .= (string)$this->renderChildren();
         }
 
         return $content;
