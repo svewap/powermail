@@ -324,16 +324,14 @@ class SendMailService
      */
     protected function createEmailBody(array $email): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setRequest($this->request);
-        $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath($email['template'] . '.html'));
+        $view = TemplateUtility::getDefaultView(TemplateUtility::getTemplatePath($email['template'] . '.html'));
 
         // variables
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($this->mail);
-        $standaloneView->assignMultiple($variablesWithMarkers);
-        $standaloneView->assignMultiple($mailRepository->getLabelsWithMarkersFromMail($this->mail));
-        $standaloneView->assignMultiple(
+        $view->assignMultiple($variablesWithMarkers);
+        $view->assignMultiple($mailRepository->getLabelsWithMarkersFromMail($this->mail));
+        $view->assignMultiple(
             [
                 'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
                 'powermail_all' => TemplateUtility::powermailAll($this->mail, 'mail', $this->settings, $this->type),
@@ -345,14 +343,14 @@ class SendMailService
             ]
         );
         if (!empty($email['variables'])) {
-            $standaloneView->assignMultiple($email['variables']);
+            $view->assignMultiple($email['variables']);
         }
 
         /** @var SendMailServiceCreateEmailBodyEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            new SendMailServiceCreateEmailBodyEvent($standaloneView, $email, $this)
+            new SendMailServiceCreateEmailBodyEvent($view, $email, $this)
         );
-        $body = $event->getStandaloneView()->render();
+        $body = $event->getView()->render();
         $this->mail->setBody($body);
         return $body;
     }

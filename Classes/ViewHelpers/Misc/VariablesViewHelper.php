@@ -8,10 +8,12 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextFactory;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\View\TemplateView;
 
 /**
  * Class VariablesViewHelper
@@ -55,9 +57,16 @@ class VariablesViewHelper extends AbstractViewHelper
         $type = $this->arguments['type'];
         $function = $this->arguments['function'];
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
-        $parseObject = GeneralUtility::makeInstance(StandaloneView::class);
-        $parseObject->setRequest($this->renderingContext->getRequest());
-        $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
+        $request = null;
+        if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
+            $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        }
+        $renderingContextFactory = GeneralUtility::makeInstance(RenderingContextFactory::class);
+        $parseContext = $renderingContextFactory->create([], $request);
+        $parseContext->getTemplatePaths()->setTemplateSource(
+            $this->removePowermailAllParagraphTagWrap($this->renderChildren())
+        );
+        $parseObject = new TemplateView($parseContext);
         $parseObject->assignMultiple(
             ArrayUtility::htmlspecialcharsOnArray($mailRepository->getVariablesWithMarkersFromMail($mail))
         );
@@ -65,7 +74,7 @@ class VariablesViewHelper extends AbstractViewHelper
             ArrayUtility::htmlspecialcharsOnArray($mailRepository->getLabelsWithMarkersFromMail($mail))
         );
         $parseObject->assign('powermail_all', TemplateUtility::powermailAll($mail, $type, $this->settings, $function));
-        return html_entity_decode($parseObject->render(), ENT_QUOTES, 'UTF-8');
+        return html_entity_decode((string)$parseObject->render(), ENT_QUOTES, 'UTF-8');
     }
 
     /**
