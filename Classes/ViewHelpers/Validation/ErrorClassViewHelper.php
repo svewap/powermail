@@ -47,10 +47,13 @@ class ErrorClassViewHelper extends AbstractViewHelper
     /**
      * Shortcut for retrieving the request from the controller context
      *
-     * @return Request
+     * @return \Psr\Http\Message\ServerRequestInterface|null
      */
     protected function getRequest()
     {
-        return $this->renderingContext->getRequest();
+        if (!$this->renderingContext->hasAttribute(\Psr\Http\Message\ServerRequestInterface::class)) {
+            return null;
+        }
+        return $this->renderingContext->getAttribute(\Psr\Http\Message\ServerRequestInterface::class);
     }
 }
