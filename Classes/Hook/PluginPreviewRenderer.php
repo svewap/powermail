@@ -39,7 +39,10 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {
-        $row = $item->getRecord();
+        $record = $item->getRecord();
+        // TYPO3 14: getRecord() returns Record object instead of array.
+        // getRawRecord()->toArray() yields raw DB values (pi_flexform as XML string, not FlexFormFieldValues).
+        $row = $record instanceof \TYPO3\CMS\Core\Domain\Record ? $record->getRawRecord()->toArray() : $record;
 
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
 
@@ -77,8 +80,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     protected function getPluginInformation(string $pluginName, array $row): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
+        $standaloneView = TemplateUtility::getDefaultView(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
         $standaloneView->assignMultiple(
             [
                 'row' => $row,

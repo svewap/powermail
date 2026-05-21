@@ -28,9 +28,9 @@ class Answer extends AbstractEntity
     const VALUE_TYPE_PASSWORD = 4;
 
     /**
-     * @var mixed
+     * @var string
      */
-    protected $value = '';
+    protected string $value = '';
 
     /**
      * Use when password is hashed so that the originally entered value is available in the finishers
@@ -103,8 +103,7 @@ class Answer extends AbstractEntity
     public function setValue(mixed $value): Answer
     {
         $value = $this->convertToJson($value);
-        $value = $this->convertToTimestamp($value);
-        $this->value = $value;
+        $this->value = (string)$this->convertToTimestamp($value);
         return $this;
     }
 
@@ -251,10 +250,8 @@ class Answer extends AbstractEntity
 
     /**
      * Convert string to timestamp for date fields (datepicker)
-     *
-     * @return int|string
      */
-    protected function convertToTimestamp(string $value)
+    protected function convertToTimestamp(string $value): string|int
     {
         if ($this->isTypeDateForDate($value)) {
             if (empty($this->translateFormat)) {
