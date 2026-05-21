@@ -541,8 +541,13 @@ class FormController extends AbstractController
      */
     protected function forwardToReferringRequest(): ?ResponseInterface
     {
-        $response = new ForwardResponse('form');
-        return $response->withArgumentsValidationResult($this->arguments->validate());
+        // withArguments([]) clears POST data from the forwarded request so the property
+        // mapper does not run on formAction and produce mapping errors that would re-trigger
+        // errorAction, causing an infinite dispatch loop (TYPO3 14 breaking change).
+        // Note: withoutArguments() is broken in TYPO3 14 (sets $this instead of $clone).
+        return (new ForwardResponse('form'))
+            ->withArguments([])
+            ->withArgumentsValidationResult($this->arguments->validate());
     }
 
     /**

@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -135,8 +136,8 @@ class ExportService
             $email->attachFromPath($this->getAbsolutePathAndFileName());
         }
 
-        $email->send();
-        return $email->isSent();
+        GeneralUtility::makeInstance(Mailer::class)->send($email);
+        return true;
     }
 
     /**
@@ -146,8 +147,7 @@ class ExportService
      */
     protected function createMailBody(): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
+        $standaloneView = TemplateUtility::getDefaultView(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
         $standaloneView->assign('export', $this);
         return $standaloneView->render();
     }
@@ -175,8 +175,7 @@ class ExportService
      */
     protected function getFileContent(): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename(
+        $standaloneView = TemplateUtility::getDefaultView(
             TemplateUtility::getTemplatePath($this->getRelativeTemplatePathAndFileName())
         );
         $standaloneView->assignMultiple(
