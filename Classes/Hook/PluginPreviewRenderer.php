@@ -15,6 +15,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Domain\Record;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -39,7 +40,10 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {
-        $row = $item->getRecord();
+        // TYPO3 v14: GridColumnItem::getRecord() returns a Record object, not an array.
+        // Resolve it to the raw DB row so the array access below keeps working.
+        $record = $item->getRecord();
+        $row = $record instanceof Record ? ($record->getRawRecord()?->toArray() ?? $record->toArray(true)) : $record;
 
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
 
