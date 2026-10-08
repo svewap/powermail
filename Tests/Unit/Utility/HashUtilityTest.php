@@ -4,12 +4,14 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use In2code\Powermail\Tests\Unit\Fixtures\Utility\HashUtilityFixture;
+use PHPUnit\Framework\Attributes\CoversClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class HashUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\HashUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\HashUtility::class)]
 class HashUtilityTest extends UnitTestCase
 {
     /**

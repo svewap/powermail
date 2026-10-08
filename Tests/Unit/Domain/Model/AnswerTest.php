@@ -4,12 +4,16 @@ namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class AnswerTest
  * @coversDefaultClass \In2code\Powermail\Domain\Model\Answer
  */
+#[CoversClass(\In2code\Powermail\Domain\Model\Answer::class)]
 class AnswerTest extends UnitTestCase
 {
     /**
@@ -96,10 +100,10 @@ class AnswerTest extends UnitTestCase
     /**
      * @param int $valueType
      * @param string $datepickerSettings
-     * @dataProvider getValueReturnVoidDataProvider
-     * @test
      * @covers ::getValue
      */
+    #[Test]
+    #[DataProvider('getValueReturnVoidDataProvider')]
     public function getValueReturnMixed(mixed $value, mixed $expectedResult, $valueType = 0, $datepickerSettings = null): void
     {
         if ($datepickerSettings) {
@@ -124,11 +128,11 @@ class AnswerTest extends UnitTestCase
     }
 
     /**
-     * @dataProvider getValueReturnVoidDataProvider
-     * @test
      * @covers ::getRawValue
      */
-    public function getRawValueReturnString(mixed $value): void
+    #[Test]
+    #[DataProvider('getValueReturnVoidDataProvider')]
+    public function getRawValueReturnString(mixed $value, mixed $expectedResult = null, mixed $valueType = null, mixed $fieldType = null): void
     {
         $this->generalValidatorMock->_setProperty('value', $value);
         self::assertSame($value, $this->generalValidatorMock->_call('getRawValue'));
@@ -136,6 +140,7 @@ class AnswerTest extends UnitTestCase
 
     public static function setValueReturnVoidDataProvider(): array
     {
+        // Answer::$value is stored as string (DB column text), date timestamps included
         return [
             'string 1' => [
                 'abc def',
@@ -163,37 +168,37 @@ class AnswerTest extends UnitTestCase
             ],
             'date 1' => [
                 '2010-01-31',
-                strtotime('2010-01-31'),
+                (string)strtotime('2010-01-31'),
                 'date',
                 'date',
             ],
             'date 2' => [
                 '1975-10-13',
-                strtotime('1975-10-13'),
+                (string)strtotime('1975-10-13'),
                 'date',
                 'date',
             ],
             'datetime 1' => [
                 '1975-10-13 14:00',
-                strtotime('1975-10-13 14:00'),
+                (string)strtotime('1975-10-13 14:00'),
                 'date',
                 'datetime',
             ],
             'datetime 2' => [
                 '2020-01-30 22:23',
-                strtotime('2020-01-30 22:23'),
+                (string)strtotime('2020-01-30 22:23'),
                 'date',
                 'datetime',
             ],
             'time 1' => [
                 '14:00',
-                strtotime('14:00'),
+                (string)strtotime('14:00'),
                 'date',
                 'time',
             ],
             'time 2' => [
                 '22:23',
-                strtotime('22:23'),
+                (string)strtotime('22:23'),
                 'date',
                 'time',
             ],
@@ -203,10 +208,10 @@ class AnswerTest extends UnitTestCase
     /**
      * @param string $fieldType
      * @param string $datepickerSettings
-     * @dataProvider setValueReturnVoidDataProvider
-     * @test
      * @covers ::setValue()
      */
+    #[Test]
+    #[DataProvider('setValueReturnVoidDataProvider')]
     public function setValueReturnVoid(mixed $value, mixed $expectedResult, $fieldType = null, $datepickerSettings = null): void
     {
         $this->generalValidatorMock->_setProperty('valueType', 0);

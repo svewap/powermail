@@ -3,6 +3,8 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ObjectUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -10,15 +12,16 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Class ObjectUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\ObjectUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\ObjectUtility::class)]
 class ObjectUtilityTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
     /**
-     * @test
      * @covers ::getFilesArray
      * @covers \In2code\Powermail\Utility\AbstractUtility::getFilesArray
      */
+    #[Test]
     public function getFilesArray(): void
     {
         $result = ObjectUtility::getFilesArray();

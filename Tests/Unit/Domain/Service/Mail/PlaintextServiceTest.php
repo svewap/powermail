@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PlaintextServiceTest
  * @coversDefaultClass \In2code\Powermail\Domain\Service\Mail\PlaintextService
  */
+#[CoversClass(\In2code\Powermail\Domain\Service\Mail\PlaintextService::class)]
 class PlaintextServiceTest extends UnitTestCase
 {
     /**
@@ -85,10 +89,10 @@ class PlaintextServiceTest extends UnitTestCase
     /**
      * @param string $content
      * @param string $expectedResult
-     * @dataProvider makePlainReturnStringDataProvider
-     * @test
      * @covers ::makePlain
      */
+    #[Test]
+    #[DataProvider('makePlainReturnStringDataProvider')]
     public function makePlainReturnString($content, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('makePlain', $content);
@@ -96,9 +100,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::removeInvisibleElements
      */
+    #[Test]
     public function removeInvisibleElementsReturnString(): void
     {
         $content = "<b>abc</b><head>\n\t<title>test</title>\n</head><style>\n\ta {color: blue;}\n</style>test<script>\n\talert('hello');\n</script>";
@@ -108,9 +112,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::removeLinebreaksAndTabs
      */
+    #[Test]
     public function removeLinebreaksAndTabsReturnString(): void
     {
         $content = "\t\t\r\ntest\t\r\n";
@@ -120,9 +124,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::addLineBreaks
      */
+    #[Test]
     public function addLineBreaksReturnString(): void
     {
         $content = '<p>test</p><ul><li>list1</li><li>list1</li></ul>';
@@ -132,9 +136,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::addSpaceToTableCells
      */
+    #[Test]
     public function addSpaceToTableCellsReturnString(): void
     {
         $content = '<th>head</th><td>cell</td>';
@@ -144,9 +148,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::removeTags
      */
+    #[Test]
     public function removeTagsReturnString(): void
     {
         $content = '<a>a</a><b>b</b><br /><address>address</address><div>div</div>';
@@ -156,9 +160,9 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::extractLinkForPlainTextContent
      */
+    #[Test]
     public function extractLinkForPlainTextContentReturnString(): void
     {
         $content = 'Please click <a href="http://domain.org/index.php?id=1&amp;x=y">this</a> link';

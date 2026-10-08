@@ -7,6 +7,12 @@ parameters:
 			path: ../../Classes/Command/AbstractCleanupCommand.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../Classes/Command/CleanupUnusedUploadsCommand.php
+
+		-
 			message: '#^Method In2code\\Powermail\\Command\\CleanupUnusedUploadsCommand\:\:getUsedUploads\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -57,6 +63,12 @@ parameters:
 		-
 			message: '#^PHPDoc tag @throws with type In2code\\Powermail\\Exception\\DeprecatedException\|TYPO3\\CMS\\Core\\Configuration\\Exception\\ExtensionConfigurationExtensionNotConfiguredException\|TYPO3\\CMS\\Core\\Configuration\\Exception\\ExtensionConfigurationPathDoesNotExistException\|TYPO3\\CMS\\Extbase\\Mvc\\Exception\\NoSuchArgumentException\|TYPO3\\CMS\\Extbase\\Object\\Exception\|TYPO3\\CMS\\Extbase\\Persistence\\Exception\\InvalidQueryException is not subtype of Throwable$#'
 			identifier: throws.notThrowable
+			count: 1
+			path: ../../Classes/Controller/AbstractController.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$propertyNames of method TYPO3\\CMS\\Extbase\\Property\\PropertyMappingConfigurationInterface\:\:allowProperties\(\) expects non\-empty\-string, int\<0, max\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../../Classes/Controller/AbstractController.php
 
@@ -295,13 +307,13 @@ parameters:
 			path: ../../Classes/Domain/Factory/FileFactory.php
 
 		-
-			message: '#^Cannot call method getUid\(\) on In2code\\Powermail\\Domain\\Model\\Form\|TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:setPid\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
 		-
-			message: '#^Cannot call method setPid\(\) on object\|null\.$#'
+			message: '#^Cannot call method getUid\(\) on In2code\\Powermail\\Domain\\Model\\Form\|TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
@@ -937,6 +949,12 @@ parameters:
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: ../../Classes/Domain/Repository/MailRepository.php
+
+		-
 			message: '#^Call to an undefined method object\:\:getForm\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -955,33 +973,27 @@ parameters:
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			message: '#^Call to an undefined method object\:\:getUid\(\)\.$#'
 			identifier: method.notFound
-			count: 1
+			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
+			count: 3
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
 			message: '#^Cannot call method getMarker\(\) on class\-string\|object\.$#'
 			identifier: method.nonObject
-			count: 3
+			count: 1
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
 			message: '#^Cannot call method getTitle\(\) on class\-string\|object\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: ../../Classes/Domain/Repository/MailRepository.php
-
-		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
@@ -1150,12 +1162,6 @@ parameters:
 			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, In2code\\Powermail\\Domain\\Model\\Field\|null given\.$#'
 			identifier: argument.type
 			count: 1
-			path: ../../Classes/Domain/Repository/MailRepository.php
-
-		-
-			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, object\|null given\.$#'
-			identifier: argument.type
-			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
@@ -1567,12 +1573,6 @@ parameters:
 			path: ../../Classes/Domain/Service/GetNewMarkerNamesForFormService.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/GetNewMarkerNamesForFormService.php
-
-		-
 			message: '#^Property In2code\\Powermail\\Domain\\Service\\GetNewMarkerNamesForFormService\:\:\$restrictedMarkers type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1863,6 +1863,12 @@ parameters:
 		-
 			message: '#^Property In2code\\Powermail\\Domain\\Service\\Mail\\SendMailService\:\:\$overwriteConfig type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: ../../Classes/Domain/Service/Mail/SendMailService.php
+
+		-
+			message: '#^Property In2code\\Powermail\\Domain\\Service\\Mail\\SendMailService\:\:\$request is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendMailService.php
 
@@ -2323,8 +2329,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/IpBreaker.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/ValueBreaker.php
 
@@ -2347,8 +2353,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/IpBlacklistMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: ../../Classes/Domain/Validator/SpamShield/LinkMethod.php
 
@@ -2371,20 +2377,26 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/MethodInterface.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
 
 		-
 			message: '#^Cannot call method getUid\(\) on In2code\\Powermail\\Domain\\Model\\Form\|TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|null\.$#'
 			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/Domain/Validator/SpamShield/RateLimitMethod.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between DateInterval and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/RateLimitMethod.php
 
@@ -2401,8 +2413,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/SessionMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/UniqueMethod.php
 
@@ -2477,6 +2489,24 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
+
+		-
+			message: '#^Result of && is always true\.$#'
+			identifier: booleanAnd.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
 
 		-
 			message: '#^Cannot call method getMarker\(\) on In2code\\Powermail\\Domain\\Model\\Field\|null\.$#'
@@ -3061,9 +3091,21 @@ parameters:
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
+			message: '#^Cannot access offset ''CType'' on array\|TYPO3\\CMS\\Core\\Domain\\RecordInterface\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
+			message: '#^Cannot access offset ''pi_flexform'' on array\|TYPO3\\CMS\\Core\\Domain\\RecordInterface\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
 			message: '#^Expression on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.expr
-			count: 1
+			count: 2
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
@@ -3091,6 +3133,12 @@ parameters:
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
+			message: '#^Parameter \#2 \$row of method In2code\\Powermail\\Hook\\PluginPreviewRenderer\:\:getPluginInformation\(\) expects array, array\|\(ArrayAccess&TYPO3\\CMS\\Core\\Domain\\RecordInterface\) given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
 			message: '#^Property In2code\\Powermail\\Hook\\PluginPreviewRenderer\:\:\$flexFormData type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3105,6 +3153,12 @@ parameters:
 		-
 			message: '#^Property In2code\\Powermail\\Hook\\PluginPreviewRenderer\:\:\$rows type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type TYPO3\\CMS\\Core\\Domain\\RawRecord\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
@@ -3799,12 +3853,6 @@ parameters:
 			path: ../../Classes/Utility/ObjectUtility.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 78 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: ../../Classes/Utility/ObjectUtility.php
-
-		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:cutArrayByKeyLimitAndAddTotalValues\(\) has parameter \$reportingArray with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3823,12 +3871,6 @@ parameters:
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
-			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedAnswersFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/Utility/ReportingUtility.php
-
-		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedAnswersFromMails\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3842,12 +3884,6 @@ parameters:
 
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedMarketingPropertiesFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/Utility/ReportingUtility.php
-
-		-
-			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedMarketingPropertiesFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../Classes/Utility/ReportingUtility.php
@@ -3963,6 +3999,12 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\StringUtility\:\:cleanString\(\) should return string but returns string\|null\.$#'
 			identifier: return.type
+			count: 1
+			path: ../../Classes/Utility/StringUtility.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, string\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: ../../Classes/Utility/StringUtility.php
 
@@ -4099,6 +4141,12 @@ parameters:
 			path: ../../Classes/ViewHelpers/Condition/IsThereAMailWithStartingLetterViewHelper.php
 
 		-
+			message: '#^Cannot call method getViewHelperVariableContainer\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Form/AdvancedSelectViewHelper.php
+
+		-
 			message: '#^Cannot cast object to string\.$#'
 			identifier: cast.string
 			count: 1
@@ -4135,10 +4183,34 @@ parameters:
 			path: ../../Classes/ViewHelpers/Form/AdvancedSelectViewHelper.php
 
 		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
+
+		-
+			message: '#^Cannot call method getByPath\(\) on TYPO3Fluid\\Fluid\\Core\\Variables\\VariableProviderInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
+
+		-
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
+
+		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Form\\CountriesViewHelper\:\:render\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
+
+		-
+			message: '#^Cannot call method getViewHelperVariableContainer\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Form/SelectFieldViewHelper.php
 
 		-
 			message: '#^Cannot cast object to string\.$#'
@@ -4243,12 +4315,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Getter/GetPiVarAnswerFieldViewHelper.php
 
 		-
-			message: '#^Method In2code\\Powermail\\ViewHelpers\\Misc\\CheckForTypoScriptViewHelper\:\:renderStatic\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/CheckForTypoScriptViewHelper.php
-
-		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Misc\\CreateRowTagsViewHelper\:\:getAttributes\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -4268,12 +4334,6 @@ parameters:
 
 		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Misc\\CreateRowTagsViewHelper\:\:getTagName\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/CreateRowTagsViewHelper.php
-
-		-
-			message: '#^Method In2code\\Powermail\\ViewHelpers\\Misc\\CreateRowTagsViewHelper\:\:renderStatic\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/CreateRowTagsViewHelper.php
@@ -4335,6 +4395,18 @@ parameters:
 		-
 			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
@@ -4495,13 +4567,31 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
+			message: '#^Strict comparison using \!\=\= between object and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
+
+		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
@@ -4549,6 +4639,18 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 
 		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/VariablesViewHelper.php
+
+		-
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/VariablesViewHelper.php
+
+		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Misc\\VariablesViewHelper\:\:removePowermailAllParagraphTagWrap\(\) should return string but returns string\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -4589,6 +4691,18 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: ../../Classes/ViewHelpers/String/TrimViewHelper.php
+
+		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
+
+		-
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
 
 		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Validation\\AbstractValidationViewHelper\:\:addClassHandler\(\) has parameter \$additionalAttributes with no value type specified in iterable type array\.$#'
@@ -4675,8 +4789,20 @@ parameters:
 			path: ../../Classes/ViewHelpers/Validation/EnableJavascriptValidationAndAjaxViewHelper.php
 
 		-
-			message: '#^Call to an undefined method TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\:\:getRequest\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Cannot call method getAttribute\(\) on Psr\\Http\\Message\\ServerRequestInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Validation/ErrorClassViewHelper.php
+
+		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: ../../Classes/ViewHelpers/Validation/ErrorClassViewHelper.php
+
+		-
+			message: '#^Cannot call method hasAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/ErrorClassViewHelper.php
 

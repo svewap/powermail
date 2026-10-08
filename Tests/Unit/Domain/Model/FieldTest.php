@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Model\FieldFixture;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FieldTest
  * @coversDefaultClass \In2code\Powermail\Domain\Model\Field
  */
+#[CoversClass(\In2code\Powermail\Domain\Model\Field::class)]
 class FieldTest extends UnitTestCase
 {
     /**
@@ -120,10 +124,10 @@ class FieldTest extends UnitTestCase
     /**
      * @param string $value
      * @param array $expectedResult
-     * @dataProvider optionArrayReturnsArrayDataProvider
-     * @test
      * @covers ::optionArray
      */
+    #[Test]
+    #[DataProvider('optionArrayReturnsArrayDataProvider')]
     public function optionArrayReturnsArray($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('optionArray', $value, '', false);
@@ -169,10 +173,10 @@ class FieldTest extends UnitTestCase
      * @param string $fieldType
      * @param array $expectedResult
      * @param bool $multiple
-     * @dataProvider dataTypeFromFieldTypeReturnsStringDataProvider
-     * @test
      * @covers ::dataTypeFromFieldType
      */
+    #[Test]
+    #[DataProvider('dataTypeFromFieldTypeReturnsStringDataProvider')]
     public function dataTypeFromFieldTypeReturnsString($fieldType, $expectedResult, $multiple = false): void
     {
         if ($multiple) {

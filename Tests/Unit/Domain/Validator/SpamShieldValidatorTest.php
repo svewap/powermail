@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Validator;
 
 use In2code\Powermail\Domain\Validator\SpamShieldValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class SpamShieldValidatorTest
  * @coversDefaultClass \In2code\Powermail\Domain\Validator\SpamShieldValidator
  */
+#[CoversClass(\In2code\Powermail\Domain\Validator\SpamShieldValidator::class)]
 class SpamShieldValidatorTest extends UnitTestCase
 {
     /**
@@ -76,10 +80,10 @@ class SpamShieldValidatorTest extends UnitTestCase
     /**
      * @param int $spamIndicator
      * @param float $expectedCalculateMailSpamFactor
-     * @dataProvider getCalculatedSpamFactorReturnsVoidDataProvider
-     * @test
      * @covers ::getCalculatedSpamFactor
      */
+    #[Test]
+    #[DataProvider('getCalculatedSpamFactorReturnsVoidDataProvider')]
     public function getCalculatedSpamFactorReturnsVoid($spamIndicator, $expectedCalculateMailSpamFactor): void
     {
         $this->generalValidatorMock->_call('setSpamIndicator', $spamIndicator);
@@ -118,10 +122,10 @@ class SpamShieldValidatorTest extends UnitTestCase
     /**
      * @param float $factor
      * @param string $expectedResult
-     * @dataProvider formatSpamFactorReturnsStringDataProvider
-     * @test
      * @covers ::formatSpamFactor
      */
+    #[Test]
+    #[DataProvider('formatSpamFactorReturnsStringDataProvider')]
     public function formatSpamFactorReturnsString($factor, $expectedResult): void
     {
         self::assertSame($expectedResult, $this->generalValidatorMock->_call('formatSpamFactor', $factor));
@@ -170,10 +174,10 @@ class SpamShieldValidatorTest extends UnitTestCase
      * @param float $calculatedSpamFactor
      * @param float $spamFactorLimit
      * @param bool $expectedResult
-     * @dataProvider isSpamToleranceLimitReachedReturnsBoolDataProvider
-     * @test
      * @covers ::isSpamToleranceLimitReached
      */
+    #[Test]
+    #[DataProvider('isSpamToleranceLimitReachedReturnsBoolDataProvider')]
     public function isSpamToleranceLimitReachedReturnsBool($calculatedSpamFactor, $spamFactorLimit, $expectedResult): void
     {
         $this->generalValidatorMock->_set('calculatedSpamFactor', $calculatedSpamFactor);

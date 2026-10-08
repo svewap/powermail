@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Validator;
 
 use In2code\Powermail\Domain\Validator\StringValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class StringValidatorTest
  * @coversDefaultClass \In2code\Powermail\Domain\Validator\StringValidator
  */
+#[CoversClass(\In2code\Powermail\Domain\Validator\StringValidator::class)]
 class StringValidatorTest extends UnitTestCase
 {
     /**
@@ -60,10 +64,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validateMandatoryForStringOrArrayReturnsBoolDataProvider
-     * @test
      * @covers ::validateMandatory
      */
+    #[Test]
+    #[DataProvider('validateMandatoryForStringOrArrayReturnsBoolDataProvider')]
     public function validateMandatoryForStringOrArrayReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMandatory', $value);
@@ -114,10 +118,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validateEmailReturnsBoolDataProvider
-     * @test
      * @covers ::validateEmail
      */
+    #[Test]
+    #[DataProvider('validateEmailReturnsBoolDataProvider')]
     public function validateEmailReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateEmail', $value);
@@ -164,10 +168,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validateUrlReturnsBoolDataProvider
-     * @test
      * @covers ::validateUrl
      */
+    #[Test]
+    #[DataProvider('validateUrlReturnsBoolDataProvider')]
     public function validateUrlReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateUrl', $value);
@@ -262,10 +266,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validatePhoneReturnsBoolDataProvider
-     * @test
      * @covers ::validatePhone
      */
+    #[Test]
+    #[DataProvider('validatePhoneReturnsBoolDataProvider')]
     public function validatePhoneReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validatePhone', $value);
@@ -308,10 +312,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validateNumbersOnlyReturnsBoolDataProvider
-     * @test
      * @covers ::validateNumbersOnly
      */
+    #[Test]
+    #[DataProvider('validateNumbersOnlyReturnsBoolDataProvider')]
     public function validateNumbersOnlyReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateNumbersOnly', $value);
@@ -366,10 +370,10 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider validateLettersOnlyReturnsBoolDataProvider
-     * @test
      * @covers ::validateLettersOnly
      */
+    #[Test]
+    #[DataProvider('validateLettersOnlyReturnsBoolDataProvider')]
     public function validateLettersOnlyReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateLettersOnly', $value);
@@ -434,10 +438,10 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @dataProvider validateMinNumberReturnsBoolDataProvider
-     * @test
      * @covers ::validateMinNumber
      */
+    #[Test]
+    #[DataProvider('validateMinNumberReturnsBoolDataProvider')]
     public function validateMinNumberReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMinNumber', $value, $configuration);
@@ -502,10 +506,10 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @dataProvider validateMaxNumberReturnsBoolDataProvider
-     * @test
      * @covers ::validateMaxNumber
      */
+    #[Test]
+    #[DataProvider('validateMaxNumberReturnsBoolDataProvider')]
     public function validateMaxNumberReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMaxNumber', $value, $configuration);
@@ -565,10 +569,10 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @dataProvider validateRangeReturnsBoolDataProvider
-     * @test
      * @covers ::validateRange
      */
+    #[Test]
+    #[DataProvider('validateRangeReturnsBoolDataProvider')]
     public function validateRangeReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateRange', $value, $configuration);
@@ -628,10 +632,10 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @dataProvider validateLengthReturnsBoolDataProvider
-     * @test
      * @covers ::validateLength
      */
+    #[Test]
+    #[DataProvider('validateLengthReturnsBoolDataProvider')]
     public function validateLengthReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateLength', $value, $configuration);
@@ -686,10 +690,10 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @dataProvider validatePatternReturnsBoolDataProvider
-     * @test
      * @covers ::validatePattern
      */
+    #[Test]
+    #[DataProvider('validatePatternReturnsBoolDataProvider')]
     public function validatePatternReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validatePattern', $value, $configuration);

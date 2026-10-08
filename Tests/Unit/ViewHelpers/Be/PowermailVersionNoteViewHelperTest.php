@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Be;
 
 use In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PowermailVersionNoteViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper::class)]
 class PowermailVersionNoteViewHelperTest extends UnitTestCase
 {
     /**
@@ -86,10 +90,10 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      * @param bool $currentVersionInExtensionTableExists
      * @param bool $isCurrentVersionUnsecure
      * @param int $expectedResult
-     * @dataProvider renderReturnsIntDataProvider
-     * @test
      * @covers ::render
      */
+    #[Test]
+    #[DataProvider('renderReturnsIntDataProvider')]
     public function renderReturnsInt(
         $extensionTableExists,
         $isNewerVersionAvailable,

@@ -4,12 +4,16 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class UploadDataAttributeViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper::class)]
 class UploadDataAttributeViewHelperTest extends UnitTestCase
 {
     /**
@@ -132,10 +136,10 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      * @param array $fieldProperties
      * @param array $additionalAttributes
      * @param array $expectedResult
-     * @dataProvider renderReturnsArrayDataProvider
-     * @test
      * @covers ::render
      */
+    #[Test]
+    #[DataProvider('renderReturnsArrayDataProvider')]
     public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult): void
     {
         $field = new Field();
@@ -181,10 +185,10 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     /**
      * @param string $string
      * @param string $expectedResult
-     * @dataProvider getDottedListOfExtensionsReturnsStringDataProvider
-     * @test
      * @covers ::getDottedListOfExtensions
      */
+    #[Test]
+    #[DataProvider('getDottedListOfExtensionsReturnsStringDataProvider')]
     public function getDottedListOfExtensionsReturnsString($string, $expectedResult): void
     {
         $result = $this->abstractValidationViewHelperMock->_call('getDottedListOfExtensions', $string);

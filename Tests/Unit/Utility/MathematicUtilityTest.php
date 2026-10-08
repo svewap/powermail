@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\MathematicUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MathematicUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\MathematicUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\MathematicUtility::class)]
 class MathematicUtilityTest extends UnitTestCase
 {
     /**
@@ -49,10 +53,10 @@ class MathematicUtilityTest extends UnitTestCase
      * @param int $number2
      * @param string $operator
      * @param string $expectedResult
-     * @dataProvider mathematicOperationReturnsIntDataProvider
-     * @test
      * @covers ::mathematicOperation
      */
+    #[Test]
+    #[DataProvider('mathematicOperationReturnsIntDataProvider')]
     public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult): void
     {
         $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);

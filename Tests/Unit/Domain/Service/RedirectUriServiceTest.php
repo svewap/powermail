@@ -3,6 +3,9 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -11,6 +14,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Class RedirectUriServiceTest
  * @coversDefaultClass \In2code\Powermail\Domain\Service\RedirectUriService
  */
+#[CoversClass(\In2code\Powermail\Domain\Service\RedirectUriService::class)]
 class RedirectUriServiceTest extends UnitTestCase
 {
     /**
@@ -26,7 +30,7 @@ class RedirectUriServiceTest extends UnitTestCase
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
             null,
-            [new ContentObjectRenderer()]
+            [self::createStub(ContentObjectRenderer::class)]
         );
     }
 
@@ -72,10 +76,10 @@ class RedirectUriServiceTest extends UnitTestCase
     /**
      * @param array $flexFormArray
      * @param string $expectedResult
-     * @dataProvider getTargetFromFlexFormReturnStringDataProvider
-     * @test
      * @covers ::getTargetFromFlexForm
      */
+    #[Test]
+    #[DataProvider('getTargetFromFlexFormReturnStringDataProvider')]
     public function getTargetFromFlexFormReturnString($flexFormArray, $expectedResult): void
     {
         $this->generalValidatorMock->_set('flexFormFixture', $flexFormArray);

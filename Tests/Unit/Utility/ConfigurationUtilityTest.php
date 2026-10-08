@@ -3,20 +3,24 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ConfigurationUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\ConfigurationUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\ConfigurationUtility::class)]
 class ConfigurationUtilityTest extends UnitTestCase
 {
     /**
      * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
      * @covers ::getDefaultMailFromAddress
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
+    #[Test]
     public function getDefaultMailFromAddressReturnsString(): void
     {
         $testString1 = 'test@mail.org';
@@ -33,10 +37,10 @@ class ConfigurationUtilityTest extends UnitTestCase
 
     /**
      * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
      * @covers ::getDefaultMailFromName
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
+    #[Test]
     public function getDefaultMailFromNameReturnsString(): void
     {
         $testString = 'randomName';
@@ -48,10 +52,10 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::getIconPath
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
+    #[Test]
     public function getIconPathReturnsString(): void
     {
         $icon = 'random';
@@ -59,9 +63,9 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::isValidationEnabled
      */
+    #[Test]
     public function isValidationEnabledReturnsBool(): void
     {
         $settings = [
@@ -234,10 +238,10 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @param array $settings
      * @param string $level
      * @param array $expectedResult
-     * @dataProvider mergeTypoScript2FlexFormReturnsVoidDataProvider
      * @covers ::mergeTypoScript2FlexForm
      * @covers \In2code\Powermail\Utility\ArrayUtility::arrayMergeRecursiveOverrule
      */
+    #[DataProvider('mergeTypoScript2FlexFormReturnsVoidDataProvider')]
     public function testMergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult): void
     {
         $settings = ConfigurationUtility::mergeTypoScript2FlexForm($settings, $level);

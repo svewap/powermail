@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetValuesForChartsViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper::class)]
 class GetValuesForChartsViewHelperTest extends UnitTestCase
 {
     /**
@@ -83,10 +87,10 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
      * @param string $glue
      * @param bool $urlEncode
      * @param string $expectedResult
-     * @dataProvider renderReturnsStringDataProvider
-     * @test
      * @covers ::render
      */
+    #[Test]
+    #[DataProvider('renderReturnsStringDataProvider')]
     public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult): void
     {
         $arguments = [

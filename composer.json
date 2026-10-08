@@ -90,6 +90,13 @@
 		"allow-plugins": {
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
+		},
+		"audit": {
+			"ignore": {
+				"PKSA-8j6w-3kr7-s9xk": "enshrined/svg-sanitize 0.22.0 is pinned by typo3/cms-core 14.3 (~0.22); dev/CI only, lift once core allows ^1.0",
+				"PKSA-6j95-1jtb-x6wc": "see PKSA-8j6w-3kr7-s9xk",
+				"PKSA-cbx2-m9db-bmzd": "see PKSA-8j6w-3kr7-s9xk"
+			}
 		}
 	},
 	"scripts": {

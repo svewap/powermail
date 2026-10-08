@@ -3,12 +3,16 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class VariablesViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper::class)]
 class VariablesViewHelperTest extends UnitTestCase
 {
     /**
@@ -77,10 +81,10 @@ class VariablesViewHelperTest extends UnitTestCase
     /**
      * @param string $content
      * @param string $expectedResult
-     * @dataProvider removePowermailAllParagraphTagWrapReturnsStringDataProvider
-     * @test
      * @covers ::removePowermailAllParagraphTagWrap
      */
+    #[Test]
+    #[DataProvider('removePowermailAllParagraphTagWrapReturnsStringDataProvider')]
     public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult): void
     {
         $result = $this->abstractValidationViewHelperMock->_call('removePowermailAllParagraphTagWrap', $content);

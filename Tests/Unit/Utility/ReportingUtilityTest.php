@@ -6,6 +6,9 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ReportingUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -13,14 +16,15 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Class ReportingUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\ReportingUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\ReportingUtility::class)]
 class ReportingUtilityTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
     /**
-     * @test
      * @covers ::getGroupedAnswersFromMails
      */
+    #[Test]
     public function getGroupedAnswersFromMailsReturnsArray(): void
     {
         $result = ReportingUtility::getGroupedAnswersFromMails($this->getDummyMails());
@@ -33,10 +37,10 @@ class ReportingUtilityTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @covers ::getGroupedMarketingPropertiesFromMails
      * @throws PropertyNotAccessibleException
      */
+    #[Test]
     public function getGroupedMarketingPropertiesFromMailsReturnsArray(): void
     {
         $result = ReportingUtility::getGroupedMarketingPropertiesFromMails($this->getDummyMails());
@@ -134,10 +138,10 @@ class ReportingUtilityTest extends UnitTestCase
     /**
      * @param array $array
      * @param array $expectedResult
-     * @dataProvider sortReportingArrayDescendingReturnsVoidDataProvider
-     * @test
      * @covers ::sortReportingArrayDescending
      */
+    #[Test]
+    #[DataProvider('sortReportingArrayDescendingReturnsVoidDataProvider')]
     public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult): void
     {
         ReportingUtility::sortReportingArrayDescending($array);
@@ -195,10 +199,10 @@ class ReportingUtilityTest extends UnitTestCase
     /**
      * @param array $array
      * @param array $expectedResult
-     * @dataProvider cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider
-     * @test
      * @covers ::cutArrayByKeyLimitAndAddTotalValues
      */
+    #[Test]
+    #[DataProvider('cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider')]
     public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult): void
     {
         ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');

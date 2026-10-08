@@ -7,12 +7,16 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Tests\Helper\TestingHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MailRepositoryTest
  * @coversDefaultClass \In2code\Powermail\Domain\Repository\MailRepository
  */
+#[CoversClass(\In2code\Powermail\Domain\Repository\MailRepository::class)]
 class MailRepositoryTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
@@ -75,10 +79,10 @@ class MailRepositoryTest extends UnitTestCase
     /**
      * @param array $values
      * @param string $expectedResult
-     * @dataProvider getLabelsWithMarkersFromMailReturnsArrayDataProvider
-     * @test
      * @covers ::getLabelsWithMarkersFromMail
      */
+    #[Test]
+    #[DataProvider('getLabelsWithMarkersFromMailReturnsArrayDataProvider')]
     public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult): void
     {
         $mail = new Mail();
@@ -160,10 +164,10 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
-     * @test
      * @covers ::getSenderMailFromArguments
      */
+    #[Test]
+    #[DataProvider('getSenderMailFromArgumentsReturnsStringDataProvider')]
     public function getSenderMailFromArgumentsReturnsString(
         $values,
         $fallback,
@@ -221,10 +225,10 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
-     * @test
      * @covers ::getSenderMailFromArguments
      */
+    #[Test]
+    #[DataProvider('getSenderNameFromArgumentsReturnsStringDataProvider')]
     public function getSenderNameFromArgumentsReturnsString(
         $values,
         $fallback,
@@ -286,19 +290,19 @@ class MailRepositoryTest extends UnitTestCase
     /**
      * @param array|string $value
      * @param string $expectedResult
-     * @dataProvider glueAnswerValuesReturnsStringDataProvider
-     * @test
      * @covers ::glueAnswerValues
      */
+    #[Test]
+    #[DataProvider('glueAnswerValuesReturnsStringDataProvider')]
     public function glueAnswerValuesReturnsString(array|string $value, string $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('glueAnswerValues', $value, ' ');
         self::assertSame($expectedResult, $result);
     }
     /**
-     * @test
      * @covers ::cleanStringForQuery
      */
+    #[Test]
     public function cleanStringForQueryReturnsString(): void
     {
         $str = '1a2b3+üßT$st';

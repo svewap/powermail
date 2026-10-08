@@ -4,12 +4,16 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FrontendUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\FrontendUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\FrontendUtility::class)]
 class FrontendUtilityTest extends UnitTestCase
 {
     public function setUp(): void
@@ -42,10 +46,10 @@ class FrontendUtilityTest extends UnitTestCase
     /**
      * @param string $value
      * @param string $expectedResult
-     * @dataProvider getDomainFromUriReturnsStringDataProvider
-     * @test
      * @covers ::getDomainFromUri
      */
+    #[Test]
+    #[DataProvider('getDomainFromUriReturnsStringDataProvider')]
     public function getDomainFromUriReturnsString($value, $expectedResult): void
     {
         self::assertSame($expectedResult, FrontendUtility::getDomainFromUri($value));
@@ -83,10 +87,10 @@ class FrontendUtilityTest extends UnitTestCase
     /**
      * @param string $ipAddress
      * @param string $expectedResult
-     * @dataProvider getCountryFromIpReturnsStringDataProvider
-     * @test
      * @covers ::getCountryFromIp
      */
+    #[Test]
+    #[DataProvider('getCountryFromIpReturnsStringDataProvider')]
     public function getCountryFromIpReturnsString($ipAddress, $expectedResult): void
     {
         self::assertSame($expectedResult, FrontendUtility::getCountryFromIp($ipAddress));
@@ -163,10 +167,10 @@ class FrontendUtilityTest extends UnitTestCase
      * @param string $host
      * @param string $url
      * @param string $expectedResult
-     * @dataProvider getSubFolderOfCurrentUrlReturnsStringDataProvider
-     * @test
      * @covers ::getSubFolderOfCurrentUrl
      */
+    #[Test]
+    #[DataProvider('getSubFolderOfCurrentUrlReturnsStringDataProvider')]
     public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult): void
     {
         $result = FrontendUtility::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);

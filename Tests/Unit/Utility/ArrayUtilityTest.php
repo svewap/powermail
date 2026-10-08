@@ -3,18 +3,22 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ArrayUtility;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ArrayUtilityTest
  * @coversDefaultClass \In2code\Powermail\Utility\ArrayUtility
  */
+#[CoversClass(\In2code\Powermail\Utility\ArrayUtility::class)]
 class ArrayUtilityTest extends UnitTestCase
 {
     /**
-     * @test
      * @covers ::getAbcArray
      */
+    #[Test]
     public function getAbcArrayReturnsArray(): void
     {
         self::assertSame(
@@ -86,10 +90,10 @@ class ArrayUtilityTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @dataProvider isJsonArrayReturnsBoolDataProvider
-     * @test
      * @covers ::isJsonArray
      */
+    #[Test]
+    #[DataProvider('isJsonArrayReturnsBoolDataProvider')]
     public function isJsonArrayReturnsBool($value, $expectedResult): void
     {
         self::assertSame($expectedResult, ArrayUtility::isJsonArray($value));
@@ -129,10 +133,10 @@ class ArrayUtilityTest extends UnitTestCase
     /**
      * @param array $array
      * @param array $expectedResult
-     * @dataProvider htmlspecialcharsOnArrayReturnsArrayDataProvider
-     * @test
      * @covers ::htmlspecialcharsOnArray
      */
+    #[Test]
+    #[DataProvider('htmlspecialcharsOnArrayReturnsArrayDataProvider')]
     public function htmlspecialcharsOnArrayReturnsArray($array, $expectedResult): void
     {
         self::assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
@@ -199,9 +203,9 @@ class ArrayUtilityTest extends UnitTestCase
     }
 
     /**
-     * @dataProvider flattenDataProvider
      * @covers ::flatten
      */
+    #[DataProvider('flattenDataProvider')]
     public function testFlatten(array $testcase, string $key, array $expected): void
     {
         self::assertSame($expected, ArrayUtility::flatten($testcase, $key));

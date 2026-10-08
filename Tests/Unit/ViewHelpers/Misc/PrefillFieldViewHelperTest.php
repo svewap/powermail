@@ -4,6 +4,9 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
@@ -14,6 +17,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Class PrefillFieldViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::class)]
 class PrefillFieldViewHelperTest extends UnitTestCase
 {
     protected MockObject $abstractValidationViewHelperMock;
@@ -188,13 +192,13 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      * @param array $variables
      * @param array $configuration
      * @param string $expectedResult
-     * @dataProvider getDefaultValueReturnsStringDataProvider
-     * @test
      * @covers ::render
      * @covers ::getValue
      * @covers ::buildValue
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
+    #[Test]
+    #[DataProvider('getDefaultValueReturnsStringDataProvider')]
     public function getDefaultValueReturnsString($fieldValues, $variables, $configuration, $expectedResult): void
     {
         $field = new Field();
@@ -202,7 +206,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
             $field->_setProperty($name, $value);
         }
 
-        $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
+        $this->abstractValidationViewHelperMock->_set('contentObject', self::createStub(ContentObjectRenderer::class));
         $this->abstractValidationViewHelperMock->_set('variables', $variables);
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('field', $field);
@@ -250,10 +254,10 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     /**
      * @param string $marker
      * @param string $expectedResult
-     * @dataProvider getFromTypoScriptRawReturnsStringDataProvider
-     * @test
      * @covers ::getFromTypoScriptRaw
      */
+    #[Test]
+    #[DataProvider('getFromTypoScriptRawReturnsStringDataProvider')]
     public function getFromTypoScriptRawReturnsString(array $configuration, $marker, $expectedResult): void
     {
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);

@@ -4,6 +4,9 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -11,6 +14,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Class DatepickerDataAttributeViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper
  */
+#[CoversClass(\In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper::class)]
 class DatepickerDataAttributeViewHelperTest extends UnitTestCase
 {
     /**
@@ -125,11 +129,11 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      * @param array $additionalAttributes
      * @param string $value
      * @param array $expectedResult
-     * @dataProvider renderReturnsArrayDataProvider
-     * @test
      * @covers ::render
      * @throws InvalidExtensionNameException
      */
+    #[Test]
+    #[DataProvider('renderReturnsArrayDataProvider')]
     public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult): void
     {
         $field = new Field();
