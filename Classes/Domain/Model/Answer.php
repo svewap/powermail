@@ -28,7 +28,11 @@ class Answer extends AbstractEntity
     const VALUE_TYPE_PASSWORD = 4;
 
     /**
-     * @var mixed
+     * Always a string in storage: setValue() JSON-encodes arrays. A "mixed" type gives
+     * Extbase (TYPO3 v14) no primary type, so property mapping of answers.N.value throws
+     * NoPropertyTypesException and no mail can be submitted.
+     *
+     * @var string
      */
     protected $value = '';
 

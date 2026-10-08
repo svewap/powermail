@@ -13,6 +13,7 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -135,8 +136,9 @@ class ExportService
             $email->attachFromPath($this->getAbsolutePathAndFileName());
         }
 
-        $email->send();
-        return $email->isSent();
+        // TYPO3 v14: MailMessage::send()/isSent() were removed, the Mailer throws on failure
+        GeneralUtility::makeInstance(MailerInterface::class)->send($email);
+        return true;
     }
 
     /**

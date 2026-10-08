@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -32,7 +33,8 @@ class MailUtility
         $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);
         $message->text($body);
-        $message->send();
-        return $message->isSent();
+        // TYPO3 v14: MailMessage::send()/isSent() were removed, the Mailer throws on failure
+        GeneralUtility::makeInstance(MailerInterface::class)->send($message);
+        return true;
     }
 }
