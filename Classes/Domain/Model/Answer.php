@@ -108,7 +108,8 @@ class Answer extends AbstractEntity
     {
         $value = $this->convertToJson($value);
         $value = $this->convertToTimestamp($value);
-        $this->value = $value;
+        // dates become an int timestamp; storage (and the DB column) is always a string
+        $this->value = (string)$value;
         return $this;
     }
 

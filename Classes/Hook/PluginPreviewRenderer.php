@@ -81,8 +81,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     protected function getPluginInformation(string $pluginName, array $row): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
+        $standaloneView = TemplateUtility::getDefaultView(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
         $standaloneView->assignMultiple(
             [
                 'row' => $row,

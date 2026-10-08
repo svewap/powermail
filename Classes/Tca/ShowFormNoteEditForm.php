@@ -72,8 +72,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getHtml(): string
     {
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
+        $standaloneView = TemplateUtility::getDefaultView(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
         $standaloneView->assignMultiple(
             [
                 'formProperties' => $this->getFormProperties(),

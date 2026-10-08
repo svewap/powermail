@@ -217,8 +217,9 @@ class GetNewMarkerNamesForFormService
     protected function cleanString(string $string): string
     {
         $csConverter = GeneralUtility::makeInstance(CharsetConverter::class);
-        $string = $csConverter->specCharsToASCII('utf-8', $string);
-        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+        // TYPO3 v14 removed specCharsToASCII(); utf8_char_mapping() is what it delegated to for utf-8
+        $string = $csConverter->utf8_char_mapping($string);
+        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string) ?? '';
         $string = str_replace('-', '_', $string);
         return strtolower($string);
     }
