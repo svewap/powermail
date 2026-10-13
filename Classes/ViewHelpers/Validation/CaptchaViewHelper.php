@@ -7,8 +7,10 @@ use Exception;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -75,7 +77,14 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     protected function getImageSource(Field $field): string
     {
         $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
-        return  $captchaService->render($field);
+        $source = (string)$captchaService->render($field);
+        if ($source === '' || PathUtility::hasProtocolAndScheme($source) || str_starts_with($source, '/')) {
+            return $source;
+        }
+        // The service returns a path relative to the public folder ("typo3temp/..."). Since TYPO3 v12
+        // absRefPrefix no longer rewrites ViewHelper output, so on any page below the root the browser
+        // resolved it against the page URL and the captcha image was a 404.
+        return PathUtility::getAbsoluteWebPath(Environment::getPublicPath() . '/' . $source);
     }
 
     public function getSettings(): array
