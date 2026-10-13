@@ -432,3 +432,31 @@ settings:
     category: powermail.view
     type: string
     default: 'EXT:powermail/Resources/Private/Layouts/'
+
+  # Used by TypoScript/Main but were not defined in this set, so the constants
+  # stayed unresolved: "{$...marketing.enable}" is a non-empty string, i.e. the
+  # Google Adwords conversion script was rendered on every thank-you page.
+  plugin.tx_powermail.settings.marketing.enable:
+    default: 0
+    type: int
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.google_conversion_id:
+    default: ''
+    type: string
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.google_conversion_label:
+    default: ''
+    type: string
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.google_conversion_language:
+    default: 'en'
+    type: string
+    category: powermail.marketing
+  plugin.tx_powermail.settings.misc.useStaticInfoTables:
+    default: 0
+    type: int
+    category: powermail.misc
+  plugin.tx_powermail.settings.validation.morestep.fieldset:
+    default: 0
+    type: int
+    category: powermail.validation

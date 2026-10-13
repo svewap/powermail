@@ -3,12 +3,6 @@
 	<file source-language="en" datatype="plaintext" original="EXT:powermail/Configuration/Sets/Marketing/labels.xlf" date="2025-10-31T08:00:00Z" product-name="powermail">
 		<header/>
 		<body>
-			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.enable">
-				<source>Enable Marketing</source>
-			</trans-unit>
-			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.enable">
-				<source>Enable JavaScript for google conversion - This is interesting if you want to track every submit in your Google Adwords account for a complete conversion.</source>
-			</trans-unit>
 			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.googleAdwords._enable">
 				<source>Enable Google Adwords</source>
 			</trans-unit>

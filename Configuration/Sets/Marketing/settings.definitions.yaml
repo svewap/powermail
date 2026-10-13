@@ -1,8 +1,4 @@
 settings:
-  plugin.tx_powermail.settings.marketing.enable:
-    default: 0
-    type: int
-    category: powermail.marketing
   plugin.tx_powermail.settings.marketing.googleAdwords._enable:
     default: 0
     type: int

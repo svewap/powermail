@@ -594,6 +594,27 @@
 			<trans-unit id="settings.plugin.tx_powermail.view.layoutRootPath">
 				<source>Path to fluid layouts (FE)</source>
 			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.enable">
+				<source>Enable Marketing</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.enable">
+				<source>Enable JavaScript for google conversion - This is interesting if you want to track every submit in your Google Adwords account for a complete conversion.</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.google_conversion_id">
+				<source>Google Conversion Id</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.google_conversion_label">
+				<source>Google Conversion Label</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.google_conversion_language">
+				<source>Google Conversion Language</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.useStaticInfoTables">
+				<source>Use EXT:static_info_tables instead of CountryAPI</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.validation.morestep.fieldset">
+				<source>Validate fieldset input on multistep forms with JavaScript on step change</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
