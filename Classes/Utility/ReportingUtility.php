@@ -45,8 +45,8 @@ class ReportingUtility
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
                 $value = $answer->getStringValue();
-                if ($answer->getField() !== null) {
-                    $uid = $answer->getField()->getUid();
+                $uid = $answer->getField()?->getUid();
+                if ($uid !== null) {
                     if (!isset($groupedAnswers[$uid][$value])) {
                         $groupedAnswers[$uid][$value] = 1;
                     } else {

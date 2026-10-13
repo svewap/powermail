@@ -250,10 +250,10 @@ class MailRepository extends AbstractRepository
 
         $forms = [];
         foreach ($queryResult as $mail) {
-            /** @var Form $form */
             $form = $mail->getForm();
-            if ($form !== null && ((int)$form->getUid() > 0 && !in_array($form->getUid(), $forms))) {
-                $forms[$form->getUid()] = $form->getTitle();
+            $formUid = $form?->getUid();
+            if ($formUid !== null && !isset($forms[$formUid])) {
+                $forms[$formUid] = $form->getTitle();
             }
         }
 

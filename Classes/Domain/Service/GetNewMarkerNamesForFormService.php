@@ -59,7 +59,11 @@ class GetNewMarkerNamesForFormService
         $markers = [];
         /** @var Form $form */
         foreach ($forms as $form) {
-            $markers[$form->getUid()] = $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
+            $formUid = $form->getUid();
+            if ($formUid === null) {
+                continue;
+            }
+            $markers[$formUid] = $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
         }
 
         return $markers;

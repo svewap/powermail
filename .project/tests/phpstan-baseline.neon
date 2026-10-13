@@ -559,12 +559,6 @@ parameters:
 			path: ../../Classes/Domain/Model/Form.php
 
 		-
-			message: '#^Offset int\<1, max\>\|null does not exist on array\<non\-empty\-string, int\<0, max\>\>\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../../Classes/Domain/Model/Form.php
-
-		-
 			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(object\)\: mixed\)\|null, Closure\(In2code\\Powermail\\Domain\\Model\\Page\)\: \(int\<1, max\>\|null\) given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1173,12 +1167,6 @@ parameters:
 		-
 			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, array\<string, bool\|string\|null\>\|bool\|string\|null given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Repository/MailRepository.php
-
-		-
-			message: '#^Strict comparison using \!\=\= between In2code\\Powermail\\Domain\\Model\\Form and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
@@ -4757,12 +4745,6 @@ parameters:
 			identifier: throws.notThrowable
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/CaptchaDataAttributeViewHelper.php
-
-		-
-			message: '#^Method In2code\\Powermail\\ViewHelpers\\Validation\\CaptchaViewHelper\:\:getImageSource\(\) should return string but returns string\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: ../../Classes/ViewHelpers/Validation/CaptchaViewHelper.php
 
 		-
 			message: '#^Method In2code\\Powermail\\ViewHelpers\\Validation\\CaptchaViewHelper\:\:getSettings\(\) return type has no value type specified in iterable type array\.$#'
