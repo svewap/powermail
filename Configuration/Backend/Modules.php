@@ -5,7 +5,7 @@ return [
         'parent' => 'web',
         'position' => [],
         'access' => 'user',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
         'path' => '/module/web/powermail',
         'extensionName' => 'Powermail',
@@ -24,7 +24,7 @@ return [
         'parent' => 'web_powermail',
         'position' => [],
         'access' => 'user',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => [
             'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionList',
         ],
@@ -39,7 +39,7 @@ return [
         'parent' => 'web_powermail',
         'position' => ['after' => 'powermail_list'],
         'access' => 'user',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => [
             'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionOverview',
         ],
@@ -53,7 +53,7 @@ return [
         'parent' => 'web_powermail',
         'position' => ['after' => 'powermail_overview_be'],
         'access' => 'user',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => [
             'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionReportingForm',
         ],
@@ -67,7 +67,7 @@ return [
         'parent' => 'web_powermail',
         'position' => ['after' => 'powermail_reporting_form'],
         'access' => 'user',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => [
             'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionReportingMarketing',
         ],
@@ -81,7 +81,7 @@ return [
         'parent' => 'web_powermail',
         'position' => ['after' => 'powermail_reporting_marketing'],
         'access' => 'admin',
-        'iconIdentifier' => 'extension-powermail-main',
+        'iconIdentifier' => 'module-powermail',
         'labels' => [
             'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionCheck',
         ],
